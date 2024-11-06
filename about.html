@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Reddit Clone</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@2.24.0/dist/full.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet" />
+  <style>
+    .subreddit-header {
+      background-color: #f5f6f7;
+      padding: 1rem;
+    }
+    .subreddit-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .subreddit-header h2 {
+      font-size: 1.5rem;
+      color: #777;
+    }
+    .sidebar {
+      width: 250px;
+      padding: 1rem;
+      border-right: 1px solid #ddd;
+    }
+    .content-area {
+      padding: 1rem;
+    }
+    .post {
+      background-color: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .post-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .post-content {
+      margin-bottom: 1rem;
+    }
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+    .post-footer .vote {
+      color: #777;
+      cursor: pointer;
+    }
+    .post-footer .date {
+      color: #777;
+    }
+    .post-footer .vote i {
+      margin-right: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="subreddit-header">
+    <div class="container mx-auto">
+      <h1>r/MathGame</h1>
+      <h2>Discuss, Share & Learn about the Math Game</h2>
+    </div>
+  </header>
+
+  <main class="container mx-auto flex">
+    <aside class="sidebar">
+      <ul>
+        <li>Sidebar Content</li>
+        <li>Trending Topics</li>
+        <li>Community Info</li>
+      </ul>
+    </aside>
+    <section class="content-area">
+      <div id="posts"></div>
+    </section>
+  </main>
+
+  <script>
+    const postsContainer = document.getElementById('posts');
+
+    const postTitles = [
+      'Solving Complex Equations: A Walkthrough', 
+      'Is Geometry Really That Hard?',
+      'The Beauty of Calculus: A Curious Mind',
+      'My Math Game Journey',
+      'Can Math Really Make You Smarter?',
+      "Puzzles That'll Make Your Head Spin...",
+    ];
+
+    const postContent = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed risus eget lacus mollis varius sed ac mauris.',
+      'Mauris vitae massa elementum, placerat est sed, bibendum lectus.',
+      'Aliquam sit amet sapien et dui faucibus sagittis. Sed bibendum augue quis mi faucibus condimentum.',
+      'Vestibulum eu laoreet nisl, nec luctus massa.',
+      'Donec in tellus eu quam molestie condimentum.',
+      'Etiam in nibh vel dolor pretium varius.',
+    ];
+
+
+    function generateRandomPosts(numPosts) {
+      for (let i = 0; i < numPosts; i++) {
+        const randomTitleIndex = Math.floor(Math.random() * postTitles.length);
+        const randomContentIndex = Math.floor(Math.random() * postContent.length);
+        const randomUpvotes = Math.floor(Math.random() * 100);
+
+        const postHtml = `
+          <div class="post">
+            <div class="post-header">
+              <div class="post-title">${postTitles[randomTitleIndex]}</div>
+              <div class="post-footer">
+                <div class="vote" onclick="upvote(this)">
+                  <i class="fa-solid fa-arrow-up"></i> ${randomUpvotes}
+                </div>
+                <div class="date">posted 1 day ago</div>
+              </div>
+            </div>
+            <div class="post-content">${postContent[randomContentIndex]}</div>
+          </div>
+        `;
+
+        postsContainer.innerHTML += postHtml;
+      }
+    }
+
+    function upvote(element) {
+      const upvoteCount = element.querySelector('i + span');
+      upvoteCount.textContent = parseInt(upvoteCount.textContent) + 1;
+    }
+
+    generateRandomPosts(10);
+  </script>
+</body>
+</html>
